@@ -1,0 +1,29 @@
+<html>
+<body>
+{% for row in rows %}
+  <h2>{{ row['Last Name'] }}</h2>
+  <b>{{ row['First Name(s)'] }}</b>
+  {% if row['Others in the Main House'] %}
+    (also {{ row['Others in the Main House'] }})<br/>
+  {% endif %}
+  {{ row['Address'] }}<br/>
+  <b>Phone</b>: {{ row['Main Phone'] }}<br/>
+  {% if row['Cell or Alternate Phone'] %}
+    <b>Cell/Alt:</b> {{ row['Cell or Alternate Phone'] }})<br/>
+  {% endif %}
+  {% if row['Pets'] %}
+    <b>Pets</b>: {{ row['Pets'] }}<br/>
+  {% endif %}
+  <b>Special needs</b>: {{ row['Special Needs'] }}<br/>
+  <b>Emergency contact</b>: {{ row['Emergency Contact'] }}<br/>
+  <b>Skills</b>: {{ row['Skills'] }}<br/>
+  <b>Supplies</b>: {{ row['Supplies'] }}<br/>
+  <b>Generator</b>: {{ row['Generator'] }}<br/>
+  <b>Non-electric Heat</b>: {{ row['Non-electric Heat'] }}<br/>
+  <b>Propane Tank on Property? Location</b>: {{ row['Propane Tank on Property? Location'] }}<br/>
+  <b>Main Water Shut Off Location</b>: {{ row['Main Water Shut Off Location'] }}<br/>
+  <em>Updated</em>: {{ row['Date Last Updated'] }}<br/>
+  </p>
+{% endfor %}
+</body>
+</html>
