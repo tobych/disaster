@@ -8,14 +8,17 @@ from flask import Flask
 import jinja
 import getpass
 import csv
+import ConfigParser
 
 # API access avoiding gdata dependency is from
 # http://stackoverflow.com/a/9006155/76452
+
 
 class Spreadsheet(object):
     def __init__(self, key):
         super(Spreadsheet, self).__init__()
         self.key = key
+
 
 class Client(object):
     def __init__(self, email, password):
@@ -47,6 +50,7 @@ class Client(object):
         req = urllib2.Request(url_format % (spreadsheet.key, format, gid), headers=headers)
         return urllib2.urlopen(req)
 
+
 # Now for the templating (jinja2) and HTTP server (flask)
 
 def get_rows():
@@ -58,9 +62,11 @@ def get_rows():
     # return [row for row in rows if row['Disaster Response Team'] == 'CENTER']
     return rows
 
+
 def nl2br(value): 
     # Doesn't work yet (I'm new to jinja2)
     return value.replace('\n', '<br>\n')
+
 
 def template():
     # TODO: Use proper integration of flask and jinja2
@@ -72,9 +78,12 @@ def template():
 
 
 if __name__ == "__main__":
-    email = ''  # YOURS
-    password = ''  # YOURS
-    spreadsheet_id = ''  # YOURS
+
+    config = ConfigParser.RawConfigParser()
+    config.read('disaster.cfg')
+    email = config.get('Account', 'email')
+    password = config.get('Account', 'password')
+    spreadsheet_id = config.get('Spreadsheet', 'spreadsheet_id')
 
     # Create client and spreadsheet objects
     gs = Client(email, password)
